@@ -1,0 +1,55 @@
+package Web;
+
+import metier.CalculPuissance;
+@WebServlet(name="css",urlPatterns={"/controle","*.do","*.php"})
+public class ServletPuiisance extends HttpServlet{ 
+	CalculPuissance p;
+}
+public void init() throws ServletException {
+	p = new CalculPuissance();}
+
+
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException 
+{
+request.setAttribute("x", new Puissance());
+request.getRequestDispatcher("Puissance.jsp").forward(request, response);
+}
+
+
+
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException
+{
+double a=Double.parseDouble(request.getParameter("a"));
+double
+b=Double.parseDouble(request.getParameter("b"));
+double x=p.calcul_p(a,b);
+Puissance pui= new Puissance();
+pui.setA(a);pui.setB(b);pui.setP(x); 
+request.setAttribute("model",pui);
+request.getRequestDispatcher("Puissance.jsp").forward(request,response);
+
+Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+<%@page import="web.Puissance"%>
+<% Puissance pui=(Puissance)request.getAttribute(« model"); %>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+<title>Insert title here</title></head><body>
+<div>
+<form action="controle" method="post">
+<table>
+<tr> <td> a:</td><td> <input type ="text" name="a" value="<%=pui.getA()%>"></tr>
+<tr><td> b:</td><td> <input type ="text" name="b" value="<%=pui.getB()%>"></tr>
+<tr> <td> <input type
+="submit"
+</table></form></div>
+<div><table>
+
+value="Calculer"></tr
+>
+
+<tr><td> la puissance: </td><td> <%= pui.getP() %> </td> </tr> ou
+bien <% out.println(pui.getP());
+%> </table></div
+
+>
